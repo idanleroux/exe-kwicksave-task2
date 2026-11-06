@@ -36,3 +36,21 @@ body{
     text-decoration: none;
     font-size: 16px;
 }
+
+.login_display{
+    max-width: 400px;
+    padding: 30px;
+}
+
+.title{
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.type-1{
+    background-color: darkgray;
+}
+
+.padding{
+    padding: 30px;
+}
