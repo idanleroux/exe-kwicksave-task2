@@ -3,11 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-<div class="title">
-    <h1>Kwicksave</h1>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</div>
+    <nav class="navbar">
+
+        <div class="logo">
+            KwickSave
+        </div>
+
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/login">Login</a>
+            <a href="/search">Search</a>
+            <a href="/admin">Admin</a>
+        </div>
+
+    </nav>
+
 </body>
 </html>

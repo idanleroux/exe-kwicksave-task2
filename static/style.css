@@ -1,7 +1,38 @@
 body{
+    background-color: aliceblue;
+    font-family: Calibri;
+}
+/* Basic navigation bar */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 30px;
+    border-bottom: 1px solid;
+
+    color: blue;
+}
+
+/* Website logo/name */
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Navigation links */
+
+.nav-links {
+    display: flex;
+    gap: 25px;
 
 }
 
-.title{
-    background-color: blue;
+/* Individual links */
+
+.nav-links a {
+    text-decoration: none;
+    font-size: 16px;
 }
