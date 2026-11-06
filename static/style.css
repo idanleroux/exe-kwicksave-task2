@@ -1,9 +1,10 @@
+/* Global CSS changes */
 body{
     background-color: aliceblue;
     font-family: Calibri;
 }
-/* Basic navigation bar */
 
+/* Basic navigation bar */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -16,14 +17,12 @@ body{
 }
 
 /* Website logo/name */
-
 .logo {
     font-size: 20px;
     font-weight: bold;
 }
 
 /* Navigation links */
-
 .nav-links {
     display: flex;
     gap: 25px;
@@ -31,17 +30,18 @@ body{
 }
 
 /* Individual links */
-
 .nav-links a {
     text-decoration: none;
     font-size: 16px;
 }
 
+/* Div that contains login display */
 .login_display{
     max-width: 400px;
     padding: 30px;
 }
 
+/* Div for in page Titles */
 .title{
     font-size: 22px;
     font-weight: bold;
@@ -51,6 +51,13 @@ body{
     background-color: darkgray;
 }
 
+/*provides padding on background changing elements */
 .padding{
     padding: 30px;
+}
+
+/* Button type 1 */
+.button_1{
+    background-color: azure;
+    font-weight:lighter;
 }
