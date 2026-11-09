@@ -15,7 +15,7 @@ with get_db() as db:
     db.execute("""
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT UNIQUE NOT NULL,
+            email TEXT UNIQUE NOT NULL,
             password TEXT NOT NULL
         )
     """)
@@ -29,23 +29,23 @@ def login():
 
     if flask.request.method == "POST":
 
-        username = flask.request.form["username"]
+        email = flask.request.form["email"]
         password = flask.request.form["password"]
 
         with get_db() as db:
             user = db.execute(
-                "SELECT * FROM users WHERE username = ?",
-                (username,)
+                "SELECT * FROM users WHERE email = ?",
+                (email,)
             ).fetchone()
 
         if user and check_password_hash(user["password"], password):
 
             flask.session["user_id"] = user["id"]
 
-            return flask.redirect("/dashboard")
+            return flask.redirect("/")
 
-        return "Invalid username or password"
-
+        return "Invalid email or password"
+    print("login working")
     return flask.render_template("login.html")
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -53,7 +53,7 @@ def signup():
 
     if flask.request.method == "POST":
 
-        username = flask.request.form["username"]
+        email = flask.request.form["email"]
         password = flask.request.form["password"]
 
         hashed_password = generate_password_hash(password)
@@ -61,15 +61,15 @@ def signup():
         try:
             with get_db() as db:
                 db.execute(
-                    "INSERT INTO users (username, password) VALUES (?, ?)",
-                    (username, hashed_password)
+                    "INSERT INTO users (email, password) VALUES (?, ?)",
+                    (email, hashed_password)
                 )
 
             return flask.redirect("/login")
 
         except sqlite3.IntegrityError:
-            return "Username already exists"
-
+            return "email already exists"
+    print("signup working")
     return flask.render_template("signup.html")
 
 
