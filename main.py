@@ -5,13 +5,18 @@ import sqlite3
 app = flask.Flask(__name__)
 app.secret_key = "dev-secret-key" # Change when added to production
 
-def get_db():
+def get_user_db():
     conn = sqlite3.connect("users.db")
     conn.row_factory = sqlite3.Row
     return conn
 
+def get_product_db():
+    conn = sqlite3.connect("product.db")
+    conn.row_factory = sqlite3.Row
+    return conn
+
 # Create users table
-with get_db() as db:
+with get_user_db() as db:
     db.execute("""
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -20,9 +25,29 @@ with get_db() as db:
         )
     """)
 
+# Create product table
+with get_product_db() as db:
+    db.execute("""
+        CREATE TABLE IF NOT EXISTS product (
+            product_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            product_name TEXT UNIQUE NOT NULL,
+            price INT NOT NULL
+        )
+    """)
+
+def get_product():
+    prod_lst = sqlite3.connect("product.db")
+    db.execute("""
+        SELECT * FROM product
+        """)
+    return prod_lst
+
+
 @app.route("/")
 def index():
-    return flask.render_template("index.html")
+    products = get_product()
+    return flask.render_template("index.html", products=products)
+    print(products)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -32,7 +57,7 @@ def login():
         email = flask.request.form["email"]
         password = flask.request.form["password"]
 
-        with get_db() as db:
+        with get_user_db() as db:
             user = db.execute(
                 "SELECT * FROM users WHERE email = ?",
                 (email,)
@@ -59,7 +84,7 @@ def signup():
         hashed_password = generate_password_hash(password)
 
         try:
-            with get_db() as db:
+            with get_user_db() as db:
                 db.execute(
                     "INSERT INTO users (email, password) VALUES (?, ?)",
                     (email, hashed_password)
