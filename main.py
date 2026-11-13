@@ -15,33 +15,13 @@ def get_product_db():
     conn.row_factory = sqlite3.Row
     return conn
 
-# Create users table
-with get_user_db() as db:
-    db.execute("""
-        CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            email TEXT UNIQUE NOT NULL,
-            password TEXT NOT NULL
-        )
-    """)
-
-# Create product table
-with get_product_db() as db:
-    db.execute("""
-        CREATE TABLE IF NOT EXISTS product (
-            product_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            product_name TEXT UNIQUE NOT NULL,
-            price INT NOT NULL
-        )
-    """)
-
 def get_product():
-    prod_lst = sqlite3.connect("product.db")
-    db.execute("""
-        SELECT * FROM product
-        """)
+    with sqlite3.connect("product.db") as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM product")
+        prod_lst = cursor.fetchall()
+    print(prod_lst)
     return prod_lst
-
 
 @app.route("/")
 def index():

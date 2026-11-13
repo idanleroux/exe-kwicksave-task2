@@ -24,8 +24,8 @@
 <div class="product-container">
   {% for product in products %}
     <div class="item">
-      <h3>{{ product.product_name }}</h3>
-      <p>Price: £{{ product.price }}</p>
+      <h3>{{ product[0] }}</h3>
+      <p>Price: £{{ product[1] }}</p>
     </div>
   {% else %}
     <p>No items found.</p>

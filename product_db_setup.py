@@ -27,8 +27,14 @@ products_list = [
 with sqlite3.connect("product.db") as conn:
     cursor = conn.cursor()
 
-    sql = "INSERT INTO product (product_name, price) VALUES (?, ?)"
+    for product in products_list:
+        cursor.execute("""INSERT INTO product(product_id, product_name) VALUES (?, ?)""", product)
 
-    cursor.executemany(sql, products_list)
-
-    conn.commit()
+#with sqlite3.connect("product.db") as conn:
+#    cursor = conn.cursor()
+#
+#    sql = "INSERT INTO product (product_name, price) VALUES (?, ?)"
+#
+#    cursor.executemany(sql, products_list)
+#
+#    conn.commit()
